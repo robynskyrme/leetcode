@@ -1,29 +1,36 @@
-# leetcode
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
 
-def trap(height):
-    """
-    :type height: List[int]
-    :rtype: int
-    """
+        layers = max(height)
 
-    layers = max(height)
-    current_layer = []
-    for h in height:
-        current_layer.append(0)
+        water_total = 0
 
-    while layers > 0:
-        for m in range(len(height)):
-            print(height[m])
-            if height[m] >= layers:
-                current_layer[m] = 1
-            else:
-                current_layer[m] = 0
-        print(current_layer)
-        layers -= 1
+                                # Make each layer into 1s and 0s
+        while layers > 0:
+                                # an empty layer, first
+            current_layer = []
+            for h in height:
+                current_layer.append(0)
 
-    return 1
+            for m in range(len(height)):
+                if height[m] >= layers:
+                    current_layer[m] = 0
+                else:
+                    current_layer[m] = 1   
 
+                                # Remove 1s at start and end
+            while current_layer[0] == 1:
+                del current_layer[0]
+            while current_layer[len(current_layer)-1] == 1:
+                del current_layer[-1]
 
+                                # Count the trapped water, add it to the total
+            water_total += sum(current_layer)
 
-if __name__ == "__main__":
-    trap([0,1,0,2,1,0,1,3,2,1,2,1])
+            layers -= 1
+
+        return water_total
