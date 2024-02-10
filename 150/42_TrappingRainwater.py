@@ -34,3 +34,7 @@ class Solution(object):
             layers -= 1
 
         return water_total
+
+
+if __name__ == "__main__":
+    print(Solution.trap(Solution,[2,67,4,57,23,3,6,67,5,3,2,4,6,7,43,9]))
