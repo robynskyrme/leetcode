@@ -1,3 +1,4 @@
+
 class Solution(object):
     def isIsomorphic(self, s, t):
         """
@@ -6,28 +7,30 @@ class Solution(object):
         :rtype: bool
         """
 
-        sarray = []
-        tarray = []
+        table = []
 
+                            # Initialize an empty table to represent every ascii character
         for i in range(256):
-            sarray.append(0)
-            tarray.append(0)
+            table.append(None)
 
-        for char in s:
-            sarray[ord(char)] += 1
-        for char in t:
-            tarray[ord(char)] += 1
+                            # For every character in s, assign the matching character in t to s's slot in the table
+        for char in range(len(s)):
+                            # (assuming the slot is empty)
+            if not table[ord(s[char])]:
+                table[ord(s[char])] = t[char]
+            else:
+                            # ... if it isn't empty, make sure that what's there matches the character in s
+                if table[ord(s[char])] != t[char]:
+                            # because if not, it's a failure
+                    return False
 
-        print(sarray)
-        print(tarray)
+                            # Check that no character is mapped to twice
+            if table.count(t[char]) > 1:
+                    return False
 
-        while sarray:
-            if tarray.count(sarray[0]) == 0:
-                return False
-            del tarray[tarray.index(sarray[0])]
-            del sarray[0]
-            print(tarray)
+                            # All this being okay, simply return true
         return True
 
+
 if __name__ == "__main__":
-    print(Solution.isIsomorphic(Solution,"eggk","orff"))
+    print(Solution.isIsomorphic(Solution,"badc","baba"))
