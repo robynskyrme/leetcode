@@ -5,11 +5,16 @@ class Solution(object):
         :rtype: List[int]
         """
 
-                            # copy intput array, zero it
         output = []
-        filter = []
+        for i in range(len(nums)):
+            output.append(1)
 
+                            # This works, but it isn't O(n)
 
+        for i in range(len(nums)):
+            for j in range(len(output)):
+                if i != j:
+                    output[j] = output[j] * nums[i]
 
         return output
 
