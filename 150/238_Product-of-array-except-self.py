@@ -6,15 +6,31 @@ class Solution(object):
         """
 
         output = []
-        for i in range(len(nums)):
-            output.append(1)
 
-                            # This works, but it isn't O(n)
+        left_prods = []
+        right_prods = []
+
+        left = 1
+        right = 1
 
         for i in range(len(nums)):
-            for j in range(len(output)):
-                if i != j:
-                    output[j] = output[j] * nums[i]
+            left = left * nums[i]
+            left_prods.append(left)
+
+            right = right * nums[len(nums)-1-i]
+            right_prods.insert(0,right)
+
+
+        left_prods.append(1)
+        left_prods.insert(0,1)
+        right_prods.append(1)
+        right_prods.insert(0,1)
+
+        caret = 1
+
+        while caret <= len(nums):
+            output.append(left_prods[caret-1] * right_prods[caret+1])
+            caret += 1
 
         return output
 
