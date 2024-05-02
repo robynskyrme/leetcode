@@ -13,6 +13,7 @@ class Solution(object):
         left = 1
         right = 1
 
+
         for i in range(len(nums)):
             left = left * nums[i]
             left_prods.append(left)
