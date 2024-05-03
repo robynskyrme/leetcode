@@ -6,35 +6,47 @@ class Solution(object):
         """
 
         layers = max(height)
+        pillars = len(height)
 
         water_total = 0
 
-                                # Make each layer into 1s and 0s
-        while layers > 0:
-                                # an empty layer, first
-            current_layer = []
-            for h in height:
-                current_layer.append(0)
+        last_two = [0,0]
+        water = False
 
-            for m in range(len(height)):
-                if height[m] >= layers:
-                    current_layer[m] = 0
+
+        for i in range(layers,0,-1):
+                            # Stack for storing water as it is counted
+            water_layer = []
+
+            for j in range(pillars-1):
+                last_two[0] = last_two[1]
+                water = False
+                if height[j] >= i:
+                    last_two[1] = 1
                 else:
-                    current_layer[m] = 1   
+                    last_two[1] = 0
 
-                                # Remove 1s at start and end
-            while current_layer[0] == 1:
-                del current_layer[0]
-            while current_layer[len(current_layer)-1] == 1:
-                del current_layer[-1]
+                if last_two == [0,1] and water == True:
+                    water == False
 
-                                # Count the trapped water, add it to the total
-            water_total += sum(current_layer)
+                if last_two == [1,0]:
+                    water = True
+                    water_layer.insert(0,1)
 
-            layers -= 1
+                if last_two == [0,0] and water == True:
+                    water_layer[0] += 1
+
+                if j == pillars and last_two == [0,0] and water == True:
+                    water = False
+                    del water_layer[0]
+
+                print(last_two)
+
+            print(water_layer)
+
 
         return water_total
 
 
 if __name__ == "__main__":
-    print(Solution.trap(Solution,[2,67,4,57,23,3,6,67,5,3,2,4,6,7,43,9]))
+    print(Solution.trap(Solution,[2,0,0,0,1,0])) #[2,67,4,57,23,3,6,67,5,3,2,4,6,7,43,9]))
