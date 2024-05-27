@@ -36,4 +36,4 @@ class Solution(object):
 
 
 if __name__ == "__main__":
-    print(Solution.wordPattern(Solution,"abba","dog cat cat fish"))
+    print(Solution.wordPattern(Solution,"abbab","dog cat cat dog cat"))
