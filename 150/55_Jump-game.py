@@ -8,6 +8,12 @@ class Solution(object):
                             # If there are no zeroes in the sequence, game will always be possible
                             # For those sequences where zeroes exist, store them in an array
         zeroes = [0]
+
+                            # Trying a cheat: if the last element is a zero, make it into a 1 so the code doesn't
+                            # try to handle it as a problem
+        if nums[len(nums)-1] == 0:
+            nums[len(nums)-1] = 1
+
         for i in range(len(nums)):
             if nums[i] == 0:
                             # Should there be a string of consecutive zeroes, only deal with the last one
@@ -18,8 +24,13 @@ class Solution(object):
                     zeroes.append(i)
         if zeroes[0] == 0:
             zeroes.pop(0)
+
+                            # If the array is only 1 long, you've finished as soon as you start
+        if len(nums) == 1:
+            return True
                             # If there ARE no zeroes (or the array is only 1 number) the game must be possible
-        if not zeroes or len(nums) == 1:
+
+        if not zeroes:
             return True
 
         print(zeroes)
@@ -35,8 +46,9 @@ class Solution(object):
             for j in range(passed+1,c):
                 distance = c-j
                 print("Distance: " + str(distance) + "       passed: " + str(passed) + "     j: " + str(j))
-                if distance % nums[j] > 0:
+                if nums[j] > 0 and distance % nums[j] > 0:
                     escape = True
+                 #   if len(nums) % nums[j]
                 print(escape)
 
             if escape == False:
